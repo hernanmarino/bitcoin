@@ -14,6 +14,7 @@ from test_framework.script_util import key_to_p2wpkh_script
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import assert_equal
 from test_framework.wallet_util import bytes_to_wif
+from test_framework.wallet import MiniWallet, MiniWalletMode, getnewdestination
 
 
 CHALLENGE_PRIVATE_KEY = (42).to_bytes(32, 'big')
@@ -37,13 +38,14 @@ class SignetMinerTest(BitcoinTestFramework):
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_cli()
-        self.skip_if_no_wallet()
+        # self.skip_if_no_wallet()
         self.skip_if_no_bitcoin_util()
 
     def run_test(self):
         node = self.nodes[0]
         # import private key needed for signing block
-        node.importprivkey(bytes_to_wif(CHALLENGE_PRIVATE_KEY))
+        # node.importprivkey(bytes_to_wif(CHALLENGE_PRIVATE_KEY))
+        pubkey, scriptpubkey, address = getnewdestination()
 
         # generate block with signet miner tool
         base_dir = self.config["environment"]["SRCDIR"]
@@ -53,7 +55,8 @@ class SignetMinerTest(BitcoinTestFramework):
                 signet_miner_path,
                 f'--cli={node.cli.binary} -datadir={node.cli.datadir}',
                 'generate',
-                f'--address={node.getnewaddress()}',
+                #f'--address={node.getnewaddress()}',
+                f'--address={address}',
                 f'--grind-cmd={self.options.bitcoinutil} grind',
                 '--nbits=1d00ffff',
                 f'--set-block-time={int(time.time())}',

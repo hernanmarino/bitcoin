@@ -98,7 +98,10 @@ class MiniWallet:
             self._scriptPubKey = key_to_p2pk_script(pub_key.get_bytes())
         elif mode == MiniWalletMode.ADDRESS_OP_TRUE:
             self._address, self._internal_key = create_deterministic_address_bcrt1_p2tr_op_true()
-            self._scriptPubKey = bytes.fromhex(self._test_node.validateaddress(self._address)['scriptPubKey'])
+            address = self._test_node.validateaddress(self._address)
+            print(self._address)
+            print(address)
+            self._scriptPubKey = bytes.fromhex(address['scriptPubKey'])
 
     def _create_utxo(self, *, txid, vout, value, height):
         return {"txid": txid, "vout": vout, "value": value, "height": height}
