@@ -173,13 +173,20 @@ public:
         };
 
         m_assumeutxo_data = {
-	    {	
+	       {	
                 .height = 800'000,
 //                .hash_serialized = AssumeutxoHash{uint256S("0x7d69b87512db3d13b9758ea32b93ce468d18cf7456fb5d250c9e1bed9339e4d2")},
                 .hash_serialized = AssumeutxoHash{uint256S("0x6e63799cac0ab45f94789f97692caf691ee66625e920cbf2525fceb24509adda")},
                 .nChainTx = 868965226,
                 .blockhash = uint256S("0x00000000000000000002a7c4c1e48d76c5a37902165a270156b7a8d72728a054")
-            }	
+            },
+	       {	
+                .height = 814'624,
+                .hash_serialized = AssumeutxoHash{uint256S("0xbf154346a76a5473439c28ccd941f8f0ba81d5600046574dce05e4388692a549")},
+                .nChainTx = 911591429,
+                .blockhash = uint256S("0x0000000000000000000224660b550867e42c9411c9c1f7114e6e6967c3d0124f")
+            }
+
         };
 
         chainTxData = ChainTxData{
